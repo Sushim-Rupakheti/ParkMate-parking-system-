@@ -2,9 +2,9 @@ from tkinter import *
 from tkinter import ttk
 # from PIL import Image, ImageTk
 import sqlite3
-root=Tk()
-root.configure(bg="#FCE8E0")
-root.title("ParkMate")
+boot=Tk()
+boot.configure(bg="grey")
+boot.title("ParkMate")
 conn = sqlite3.connect("pk1.db")
 cursor=conn.cursor()
 cursor.execute("""CREATE TABLE IF NOT EXISTS parking(
@@ -20,9 +20,9 @@ cursor.execute("""CREATE TABLE IF NOT EXISTS parking(
 conn.commit()
 conn.close()
 
-bg1 = PhotoImage(file = "bike1.png")  
-labe001 = Label( root, image = bg1) 
-labe001.place(x= 400, y= 100,)
+bg1 = PhotoImage(file = "underground.png")  
+labe001 = Label( boot, image = bg1) 
+labe001.place(x= 100, y= 10,)
 
 # bg = PhotoImage(file = "bike.png")  
 # label1 = Label( root, image = bg) 
@@ -83,7 +83,7 @@ def add():
 def Bill():
     import tkinter as Tk
     # Create a new window
-    bill_window = Tk.Toplevel(root)
+    bill_window = Tk.Toplevel(boot)
     bill_window.title("Parking Bill")
     
     # Create Treeview widget
@@ -187,68 +187,62 @@ def update(record_id):
           conn.close()
           
           
-frame=LabelFrame(root,padx=80,pady=80,bg="white")          
-lbl = Label(text="Parking management System",font=("Arial Bold",40),bg="#FCE8E0").pack(pady=0)
-root.geometry("1200x680")
-root.resizable(0,0)
+frame=LabelFrame(boot,padx=80,pady=80,bg="white")          
+lbl = Label(text="Parking management System",font=("Arial Bold",40),bg="grey").pack(pady=0)
+boot.geometry("1200x680")
+boot.resizable(0,0)
 label_VechileNo = Label(text="Vechile no.",font=("Arial Bold",20),bg="#DCDFDE")
-label_VechileNo.place(x=40,y=120)
+label_VechileNo.place(x=140,y=120)
 
 label_address = Label(text="Type",font=("Arial Bold",20),bg="#DCDFDE")
-label_address.place(x=40,y=170)
+label_address.place(x=150,y=170)
 
 label_role = Label(text="Time",font=("Arial Bold",20),bg="#DCDFDE")
-label_role.place(x=40,y=210)
+label_role.place(x=150,y=210)
 
 label_salary = Label(text="Cost",font=("Arial Bold",20),bg="#DCDFDE")
-label_salary.place(x=40,y=260)
+label_salary.place(x=150,y=260)
 
 label_delete = Label(text="Check out",font=("Arial Bold",20),bg="#DCDFDE")
-label_delete.place(x=40,y=550)
+label_delete.place(x=150,y=550)
 
 label_update= Label(text="Update",font=("Arial Bold",20),bg="#DCDFDE")
-label_update.place(x=40,y=500)
+label_update.place(x=150,y=500)
 
-VechileNo = Entry(root,width=30)
-VechileNo.place(x=210,y=120,height=30)
+VechileNo = Entry(boot,width=30)
+VechileNo.place(x=300,y=120,height=30)
 VechileNo.configure(bg="#DCDFDE")
 
-Type = ttk.Combobox(root, width=27, values=["Four Wheeler(Heavy)", "Four Wheeler(Personal)","Four Wheeler(Government)"])
-Type.place(x=210, y=170, height=30)
+Type = ttk.Combobox(boot, width=27, values=["Four Wheeler(Heavy)", "Four Wheeler(Personal)","Four Wheeler(Government)"])
+Type.place(x=300, y=170, height=30)
 
-Time = ttk.Combobox(root, width=27, values=[1,2,3,4,5,6])
-Time.place(x=210,y=210,height=30)
+Time = ttk.Combobox(boot, width=27, values=[1,2,3,4,5,6])
+Time.place(x=300,y=210,height=30)
 
 
-Cost = Entry(root,width=30)
-Cost.place(x=210,y=260,height=30)
+Cost = Entry(boot,width=30)
+Cost.place(x=300,y=260,height=30)
 Cost.configure(bg="#DCDFDE")
 
-delete = ttk.Combobox(root, width=27, values=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20])
-delete.place(x=210,y=550,height=30)
+delete = ttk.Combobox(boot, width=27, values=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20])
+delete.place(x=300,y=550,height=30)
 
 
-update_box = Entry(root, width=30)
-update_box.place(x=210,y=500,height=30)
+update_box = Entry(boot, width=30)
+update_box.place(x=300,y=500,height=30)
 update_box.configure(bg="#DCDFDE")
 
 
-add_btn= Button(root,text="Add",font=("Arial Bold",20),command=add)
-add_btn.place(x=10,y=350)
+add_btn= Button(boot,text="Add",font=("Arial Bold",20),command=add)
+add_btn.place(x=150,y=350)
 
 
-Bill_btn= Button(root,text="Bill",font=("Arial Bold",20),command=Bill)
-Bill_btn.place(x=100,y=350)
+Bill_btn= Button(boot,text="Bill",font=("Arial Bold",20),command=Bill)
+Bill_btn.place(x=250,y=350)
 
-Bill = Entry(root,width=30)
-Bill.place(x=150,y=430,height=30)
+Bill = Entry(boot,width=30)
+Bill.place(x=300,y=430,height=30)
 
-
-update_btn= Button(root,text="Change Vechile \n Info ",font=("Arial Bold",13),command=edit)
-update_btn.place(x=200,y=350)
-
-delete_btn= Button(root,text="Check out",font=("Arial Bold",20),command=deleteRow)
-delete_btn.place(x=300,y=600)
 
 def open():
         global my_img
@@ -258,8 +252,8 @@ def open():
         my_label.pack(pady=0)
         btn=Button(top,text="Close Window",bg="black",fg="white",command=top.destroy)
         btn.pack()
-btnn=Button(root,text="open Slot BluePrint",command=open,bg="black",fg="white")
-btnn.place(x=1005,y=77)
+btnn=Button(boot,text="open Slot BluePrint",command=open,bg="black",fg="white")
+btnn.place(x=900,y=77)
 
 
-root.mainloop()
+boot.mainloop()
