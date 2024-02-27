@@ -1,5 +1,5 @@
 from tkinter import *
-from tkinter import ttk
+from tkinter import ttk,messagebox
 from PIL import Image, ImageTk
 import sqlite3
 root=Tk()
@@ -20,6 +20,8 @@ cursor.execute("""CREATE TABLE IF NOT EXISTS parking(
 conn.commit()
 conn.close()
 
+
+#background images 
 bg1 = PhotoImage(file="C:/Users/mhnas/Desktop/LED/photos/color.png")
 labe001 = Label( root, image = bg1) 
 labe001.place(x = 0, y = 70)
@@ -29,15 +31,28 @@ label1 = Label( root, image = bg)
 label1.place(x = 500, y = 70)
 
 
+
+#CRUD Functions
+
 def add():
+    vehicle_no=VechileNo.get()
+    vehicle_type = Type.get()
+    time =Time.get()
+
+    if not vehicle_no or not vehicle_type or not time:
+        messagebox.showerror("Error", "Please fill in all fields.")
+        return
+    try:
+        time = int(time)
+    except ValueError:
+        messagebox.showerror("Error", "Time must be a valid integer.")
+        return
+
     conn = sqlite3.connect("pk.db")
     c = conn.cursor()
+    
 
-    # Get the vehicle type and time from the input fields
-    vehicle_type = Type.get()
-    time = int(Time.get())
-
-    # Calculate cost based on vehicle type
+    # Calculation cost based on vehicle type
     if vehicle_type == "Four Wheeler(Heavy)":
         cost_per_hour = 50
     elif vehicle_type == "Four Wheeler(Personal)":
@@ -45,15 +60,13 @@ def add():
     elif vehicle_type == "Four Wheeler(Government)":
         cost_per_hour = 0
     else:
-        # Default cost if vehicle type is not recognized
         cost_per_hour = 0
-
     cost = time * cost_per_hour
 
     # Check for available spaces
     c.execute("SELECT ID FROM parking ORDER BY ID ASC")
     records = c.fetchall()
-    available_spaces = set(range(1, 21)) - set(record[0] for record in records)
+    available_spaces = set(range(1, 200)) - set(record[0] for record in records)
 
     if available_spaces:
         # If there are available spaces, insert the new vehicle at the lowest available ID
@@ -70,11 +83,11 @@ def add():
 
     conn.commit()
     conn.close()
-
+    messagebox.showinfo("Congratulations","Vehicle added successfully")
     VechileNo.delete(0, END)
     Type.set("")  # Reset the vehicle type selection
     Time.delete(0, END)
-    Cost.delete(0, END)
+    # Cost.delete(0, END)
 
 
 
@@ -82,7 +95,6 @@ def add():
 
 def Bill():
     import tkinter as Tk
-    # Create a new window
     bill_window = Tk.Toplevel(root)
     bill_window.title("Parking Bill")
     
@@ -105,11 +117,18 @@ def Bill():
     for record in records:
         tree.insert("", "end", values=record)
     
+
     conn.close()
 
 def deleteRow():
-          conn = sqlite3.connect("pk.db")
           ID=delete.get()
+
+          if not ID:
+                messagebox.showerror("Error","Please enter the parking slot of checking out vehicle in entry box below")
+                return
+          
+
+          conn = sqlite3.connect("pk.db")
           c=conn.cursor()
           c.execute("DELETE FROM parking WHERE ID="+delete.get())
           conn.commit()
@@ -121,6 +140,12 @@ def deleteRow():
 
 
 def edit():  
+          record_id =update_box.get()
+
+          if not record_id:
+                messagebox.showerror("Error","Please enter the parking slot of updating vehicle in entrybox below")
+                return
+
           global editor
           editor = Tk()
           editor.title('Update Vechile_Info')
@@ -128,7 +153,7 @@ def edit():
           editor.configure(bg="#FCE8E0")
           conn = sqlite3.connect("pk.db")
           c=conn.cursor()
-          record_id =update_box.get()
+          
           c.execute("SELECT * FROM parking WHERE ID=?",(record_id,))
           
           # creating global variable
@@ -185,6 +210,8 @@ def update(record_id):
                     )
           conn.commit()
           conn.close()
+          messagebox.showinfo("congratulations","Vehiccle_info successfully changed")
+
           
           
 frame=LabelFrame(root,padx=80,pady=80,bg="white")          
@@ -194,14 +221,14 @@ root.resizable(0,0)
 label_VechileNo = Label(text="Vechile no.",font=("Arial Bold",20),bg="#DCDFDE")
 label_VechileNo.place(x=40,y=120)
 
-label_address = Label(text="Type",font=("Arial Bold",20),bg="#DCDFDE")
-label_address.place(x=40,y=170)
+label_Type = Label(text="Type",font=("Arial Bold",20),bg="#DCDFDE")
+label_Type.place(x=40,y=190)
 
-label_role = Label(text="Time",font=("Arial Bold",20),bg="#DCDFDE")
-label_role.place(x=40,y=210)
+label_Time = Label(text="Time",font=("Arial Bold",20),bg="#DCDFDE")
+label_Time.place(x=40,y=260)
 
-label_salary = Label(text="Cost",font=("Arial Bold",20),bg="#DCDFDE")
-label_salary.place(x=40,y=260)
+# label_salary = Label(text="Cost",font=("Arial Bold",20),bg="#DCDFDE")
+# label_salary.place(x=40,y=260)
 
 label_delete = Label(text="Check out",font=("Arial Bold",20),bg="#DCDFDE")
 label_delete.place(x=40,y=550)
@@ -214,15 +241,15 @@ VechileNo.place(x=210,y=120,height=30)
 VechileNo.configure(bg="#DCDFDE")
 
 Type = ttk.Combobox(root, width=27, values=["Four Wheeler(Heavy)", "Four Wheeler(Personal)","Four Wheeler(Government)"])
-Type.place(x=210, y=170, height=30)
+Type.place(x=210, y=190, height=30)
 
 Time = ttk.Combobox(root, width=27, values=[1,2,3,4,5,6])
-Time.place(x=210,y=210,height=30)
+Time.place(x=210,y=260,height=30)
 
 
-Cost = Entry(root,width=30)
-Cost.place(x=210,y=260,height=30)
-Cost.configure(bg="#DCDFDE")
+# Cost = Entry(root,width=30)
+# Cost.place(x=210,y=260,height=30)
+# Cost.configure(bg="#DCDFDE")
 
 delete = ttk.Combobox(root, width=27, values=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20])
 delete.place(x=210,y=550,height=30)
@@ -239,9 +266,6 @@ add_btn.place(x=10,y=350)
 
 Bill_btn= Button(root,text="Bill",font=("Arial Bold",20),command=Bill)
 Bill_btn.place(x=100,y=350)
-
-# Bill = Entry(root,width=30)
-# Bill.place(x=150,y=430,height=30)
 
 
 update_btn= Button(root,text="Change Vechile \n Info ",font=("Arial Bold",20),command=edit)
