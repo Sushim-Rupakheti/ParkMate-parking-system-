@@ -72,7 +72,7 @@ def signup_command():
         window.destroy()
 
     img = PhotoImage(file="C:\\Users\\Acer\\Documents\\ParkMate-parking-system-\\photos\\parkmate.png")
-    Label(window, image=img, border=0, bg='white').place(x=2, y=2)
+    Label(window, image=img, border=0, bg='white').place(x=2, y=10)
 
     heading = Label(window, text='Sign Up', fg='black', bg='white', font=('Microsoft YaHei UI Light', 23, 'bold'))
     heading.place(x=545, y=150)
@@ -132,7 +132,7 @@ def signup_command():
     window.mainloop()
 
 img = PhotoImage(file="C:\\Users\\Acer\\Documents\\ParkMate-parking-system-\\photos\\parkmate.png")
-Label(root, image=img, bg='white').place(x=2, y=2)
+Label(root, image=img, bg='white').place(x=2, y=10)
 
 heading = Label(text='Sign In', fg='black', bg='white', font=('Microsoft YaHei UI Light', 23, 'bold'))
 heading.place(x=545, y=150)
