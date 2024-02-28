@@ -3,6 +3,8 @@ from tkinter import ttk,messagebox
 from PIL import Image, ImageTk
 import sqlite3
 root=Tk()
+icon_path = ("C:/Users/mhnas/Desktop/LED/photos/car.ico")
+root.iconbitmap(icon_path)
 root.configure(bg="#FCE8E0")
 root.title("ParkMate")
 conn = sqlite3.connect("pk.db")
@@ -22,7 +24,7 @@ conn.close()
 
 
 #background images 
-bg1 = PhotoImage(file="C:/Users/mhnas/Desktop/LED/photos/color.png")
+bg1 = PhotoImage(file="C:/Users/mhnas/Desktop/LED/photos/color.png")  
 labe001 = Label( root, image = bg1) 
 labe001.place(x = 0, y = 70)
 
@@ -97,6 +99,8 @@ def Bill():
     import tkinter as Tk
     bill_window = Tk.Toplevel(root)
     bill_window.title("Parking Bill")
+    icon_path = ("C:/Users/mhnas/Desktop/LED/photos/bill.ico")
+    bill_window.iconbitmap(icon_path)
     
     # Create Treeview widget
     tree = ttk.Treeview(bill_window, columns=("ID", "Column1", "Column2", "Column3", "Column4"), show="headings")
@@ -148,6 +152,8 @@ def edit():
 
           global editor
           editor = Tk()
+          icon_path = ("C:/Users/mhnas/Desktop/LED/photos/car.ico")
+          editor.iconbitmap(icon_path)
           editor.title('Update Vechile_Info')
           editor.geometry("300x300")
           editor.configure(bg="#FCE8E0")
