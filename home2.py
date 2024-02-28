@@ -21,7 +21,11 @@ cursor.execute("""CREATE TABLE IF NOT EXISTS parking(
 conn.commit()
 conn.close()
 
+<<<<<<< HEAD
 bg1 = PhotoImage(file = "photos/underground.png")  
+=======
+bg1 = PhotoImage(file = "C:/Users/Dell/OneDrive/Desktop/New folder/ParkMate-parking-system-/photos/underground.png")  
+>>>>>>> d597fcfec922e3d3aa7b670047ad3b554ab7b856
 labe001 = Label( boot, image = bg1) 
 labe001.place(x= 100, y= 10,)
 
@@ -112,7 +116,7 @@ def Bill():
     tree.pack(fill="both", expand=True)
     
     # Connect to database and fetch data
-    conn = sqlite3.connect("pk.db")
+    conn = sqlite3.connect("pk1.db")
     c = conn.cursor()
     c.execute("SELECT * FROM parking")
     records = c.fetchall()
@@ -264,10 +268,10 @@ add_btn.place(x=150,y=350)
 Bill_btn= Button(boot,text="Bill",font=("Arial Bold",20),command=Bill)
 Bill_btn.place(x=250,y=350)
 
-update_btn= Button(boot,text='Change Vechile \n Info',font =('Arial Bold',20),command=edit)
-update_btn.place(x=300,y=350)
+update_btn= Button(boot,text='Change Vechile \n Info',font =('Arial Bold',13),command=edit)
+update_btn.place(x=350,y=350)
 Bill = Entry(boot,width=30)
-Bill.place(x=300,y=430,height=30)
+Bill.place(x=300 ,y=430,height=30)
 
 
 def open():
