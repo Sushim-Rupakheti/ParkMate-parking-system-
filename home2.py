@@ -21,11 +21,8 @@ cursor.execute("""CREATE TABLE IF NOT EXISTS parking(
 conn.commit()
 conn.close()
 
-<<<<<<< HEAD
+
 bg1 = PhotoImage(file = "photos/underground.png")  
-=======
-bg1 = PhotoImage(file = "C:/Users/Dell/OneDrive/Desktop/New folder/ParkMate-parking-system-/photos/underground.png")  
->>>>>>> d597fcfec922e3d3aa7b670047ad3b554ab7b856
 labe001 = Label( boot, image = bg1) 
 labe001.place(x= 100, y= 10,)
 

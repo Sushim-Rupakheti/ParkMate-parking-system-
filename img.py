@@ -14,6 +14,7 @@ def show_vehicle_type(vehicle_type):
         top.destroy()
         import home2
     else:
+        top.destroy()
         import home
 label_font = font.Font(family='Helvetica', size=60, weight='bold')
 label = Label(top, text="Select Vehicle Type:", font=label_font)

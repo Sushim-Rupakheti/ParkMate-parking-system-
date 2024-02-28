@@ -28,7 +28,7 @@ bg1 = PhotoImage(file="photos/color.png")
 labe001 = Label( root, image = bg1) 
 labe001.place(x = 0, y = 70)
 
-bg = PhotoImage(file = "photos\simple-bg.png")  
+bg = PhotoImage(file = "photos/simple-bg.png")  
 label1 = Label( root, image = bg) 
 label1.place(x = 500, y = 70)
 
