@@ -112,7 +112,7 @@ def Bill():
     tree.pack(fill="both", expand=True)
     
     # Connect to database and fetch data
-    conn = sqlite3.connect("pk.db")
+    conn = sqlite3.connect("pk1.db")
     c = conn.cursor()
     c.execute("SELECT * FROM parking")
     records = c.fetchall()
