@@ -5,6 +5,7 @@ import sqlite3
 conn = sqlite3.connect('user_data.db')
 cursor = conn.cursor()
 
+
 cursor.execute('''
     CREATE TABLE IF NOT EXISTS users (
         username TEXT PRIMARY KEY,
@@ -15,11 +16,12 @@ conn.commit()
 
 root = Tk()
 root.title('Login')
-icon_path = "C:\\Users\\Acer\\Documents\\ParkMate-parking-system-\\photos\\car.ico"
+icon_path = "photos/car.ico"
 root.iconbitmap(icon_path)
 root.geometry('1200x680')
 root.configure(bg="#fff")
 root.resizable(False, False)
+
 
 def signin():
     username = user.get()
@@ -30,7 +32,7 @@ def signin():
 
     if result:
         root.destroy()
-        import img
+        import Home_screen
     else:
         messagebox.showerror('Invalid', 'Invalid username or password')
 
@@ -64,7 +66,7 @@ def signup_command():
     def sign():
         window.destroy()
 
-    img = PhotoImage(file="C:\\Users\\Acer\\Documents\\ParkMate-parking-system-\\photos\\parkmate.png")
+    img = PhotoImage(file="photos/parkmate.png")
     Label(window, image=img, border=0, bg='white').place(x=2, y=10)
 
     heading = Label(window, text='Sign Up', fg='black', bg='white', font=('Microsoft YaHei UI Light', 23, 'bold'))
@@ -124,7 +126,7 @@ def signup_command():
 
     window.mainloop()
 
-img = PhotoImage(file="C:\\Users\\Acer\\Documents\\ParkMate-parking-system-\\photos\\parkmate.png")
+img = PhotoImage(file="photos/parkmate.png")
 Label(root, image=img, bg='white').place(x=2, y=10)
 
 heading = Label(text='Sign In', fg='black', bg='white', font=('Microsoft YaHei UI Light', 23, 'bold'))

@@ -3,7 +3,7 @@ from tkinter import ttk,messagebox
 from PIL import Image, ImageTk
 import sqlite3
 root=Tk()
-icon_path = ("photos\car.ico")
+icon_path = ("photos/car.ico")
 root.iconbitmap(icon_path)
 root.configure(bg="#FCE8E0")
 root.title("ParkMate")
@@ -221,7 +221,7 @@ def update(record_id):
           
           
 frame=LabelFrame(root,padx=80,pady=80,bg="white")          
-lbl = Label(text="Parking management System",font=("Arial Bold",40),bg="#FCE8E0").pack(pady=0)
+lbl = Label(text="ParkMate For 4-Wheelers",font=("Arial Bold",40),bg="#FCE8E0").pack(pady=0)
 root.geometry("1200x680")
 root.resizable(0,0)
 label_VechileNo = Label(text="Vechile no.",font=("Arial Bold",20),bg="#DCDFDE")
@@ -232,9 +232,6 @@ label_Type.place(x=40,y=190)
 
 label_Time = Label(text="Time",font=("Arial Bold",20),bg="#DCDFDE")
 label_Time.place(x=40,y=260)
-
-# label_salary = Label(text="Cost",font=("Arial Bold",20),bg="#DCDFDE")
-# label_salary.place(x=40,y=260)
 
 label_delete = Label(text="Check out",font=("Arial Bold",20),bg="#DCDFDE")
 label_delete.place(x=40,y=550)
@@ -252,10 +249,6 @@ Type.place(x=210, y=190, height=30)
 Time = ttk.Combobox(root, width=27, values=[1,2,3,4,5,6])
 Time.place(x=210,y=260,height=30)
 
-
-# Cost = Entry(root,width=30)
-# Cost.place(x=210,y=260,height=30)
-# Cost.configure(bg="#DCDFDE")
 
 delete = ttk.Combobox(root, width=27, values=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20])
 delete.place(x=210,y=550,height=30)
@@ -283,6 +276,7 @@ delete_btn.place(x=300,y=600)
 def open():
         global my_img
         top=Toplevel()
+        top.iconbitmap(icon_path)
         my_img= ImageTk.PhotoImage(Image.open("photos/map.png"))
         my_label=Label(top,image=my_img)
         my_label.pack(pady=0)
@@ -293,7 +287,7 @@ btnn.place(x=1005,y=77)
 
 def back():
       root.destroy()
-      import img
+      import Home_screen
 
 btnn1=Button(root,text="Back",command=back,bg="black",fg="white")
 btnn1.place(x=1070,y=590)

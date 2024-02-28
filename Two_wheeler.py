@@ -1,11 +1,14 @@
 from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
-# from PIL import Image, ImageTk
+from PIL import Image,ImageTk
 import sqlite3
 boot=Tk()
 boot.configure(bg="grey")
 boot.title("ParkMate")
+icon_path = ("photos/bike.ico")
+boot.iconbitmap(icon_path)
+
 conn = sqlite3.connect("pk1.db")
 cursor=conn.cursor()
 cursor.execute("""CREATE TABLE IF NOT EXISTS parking(
@@ -21,25 +24,20 @@ cursor.execute("""CREATE TABLE IF NOT EXISTS parking(
 conn.commit()
 conn.close()
 
-
-bg1 = PhotoImage(file = "photos/underground.png")  
+bg = PhotoImage(file = "photos/color.png")  
+labe001 = Label( boot, image = bg) 
+labe001.place(x=500, y=70)
+              
+bg1 = PhotoImage(file = "photos/bike-2.png")  
 labe001 = Label( boot, image = bg1) 
-labe001.place(x= 100, y= 10,)
-
-# bg = PhotoImage(file = "bike.png")  
-# label1 = Label( root, image = bg) 
-# label1.place(x = 0, y = 100)
+labe001.place(x= 0, y=70)
 
 
 def add():
     vehicle_no=VechileNo.get()
-    c = conn.cursor()
-
-    # Get the vehicle type and time from the input fields
     vehicle_type = Type.get()
-    time = int(Time.get())
-
-    
+    time = Time.get()
+        
     if not vehicle_no or not vehicle_type or not time:
         messagebox.showerror("Error", "Please fill in all fields.")
         return
@@ -48,29 +46,27 @@ def add():
     except ValueError:
         messagebox.showerror("Error", "Time must be a valid integer.")
         return
+    
     conn=sqlite3.connect('pk.db')
     c = conn.cursor()
 
     # Calculate cost based on vehicle type
-    if vehicle_type == "Two wheeler(cruser)":
-        cost_per_hour = 50
-    elif vehicle_type == "Two Wheeler(Personal)":
+    if vehicle_type == "Two Wheeler(Bicycle)":
         cost_per_hour = 25
+    elif vehicle_type == "Two Wheeler(Bike)":
+        cost_per_hour = 50
     elif vehicle_type == "Two Wheeler(Government)":
         cost_per_hour = 0
     else:
-        # Default cost if vehicle type is not recognized
         cost_per_hour = 0
 
     cost = time * cost_per_hour
 
-    # Check for available spaces
     c.execute("SELECT ID FROM parking ORDER BY ID ASC")
     records = c.fetchall()
     available_spaces = set(range(1, 21)) - set(record[0] for record in records)
 
     if available_spaces:
-        # If there are available spaces, insert the new vehicle at the lowest available ID
         space = min(available_spaces)
         c.execute("INSERT INTO parking (ID, VechileNo, Type, Time, Cost) VALUES (?, ?, ?, ?, ?)",
                   (space, VechileNo.get(), vehicle_type, time, cost))
@@ -85,11 +81,10 @@ def add():
     conn.commit()
     conn.close()
     messagebox.showinfo("Congratulations","Vehicle added successfully")
-
     VechileNo.delete(0, END)
-    Type.set("")  # Reset the vehicle type selection
+    Type.set("") 
     Time.delete(0, END)
-    Cost.delete(0, END)
+
 
 
 
@@ -125,14 +120,18 @@ def Bill():
     conn.close()
 
 def deleteRow():
-          conn = sqlite3.connect("pk1.db")
-          ID=delete.get()
-          c=conn.cursor()
-          c.execute("DELETE FROM parking WHERE ID="+delete.get())
-          conn.commit()
-          conn.close
-          delete.delete(0,END)
-          Bill()
+    ID=delete.get()
+    if not ID:
+          messagebox.showerror("Error","Please enter the parking slot no of vehicle to be checked out")
+          return
+    
+    conn = sqlite3.connect("pk1.db")
+    c=conn.cursor()
+    c.execute("DELETE FROM parking WHERE ID="+delete.get())
+    conn.commit()
+    conn.close
+    delete.delete(0,END)
+    Bill()
     
 
 
@@ -147,12 +146,13 @@ def edit():
            
           global editor
           editor = Tk()
+          editor.iconbitmap(icon_path)
           editor.title('Update Vechile_Info')
           editor.geometry("300x300")
           editor.configure(bg="#FCE8E0")
-          conn = sqlite3.connect("pk.db")
+          conn = sqlite3.connect("pk1.db")
           c=conn.cursor()
-          record_id =update_box.get()
+
           c.execute("SELECT * FROM parking WHERE ID=?",(record_id,))
           
           # creating global variable
@@ -209,85 +209,80 @@ def update(record_id):
                     )
           conn.commit()
           conn.close()
-          messagebox.showinfo("congratulations","Vehiccle_info successfully changed")
+          messagebox.showinfo("congratulations","Vehicle_info successfully changed")
           
           
 frame=LabelFrame(boot,padx=80,pady=80,bg="white")          
-lbl = Label(text="Parking management System",font=("Arial Bold",40),bg="grey").pack(pady=0)
+lbl = Label(text="ParkMate For 2-Wheelers",font=("Arial Bold",40),bg="grey").pack(pady=0)
 boot.geometry("1200x680")
 boot.resizable(0,0)
+
 label_VechileNo = Label(text="Vechile no.",font=("Arial Bold",20),bg="#DCDFDE")
-label_VechileNo.place(x=140,y=120)
+label_VechileNo.place(x=690,y=120)
 
-label_address = Label(text="Type",font=("Arial Bold",20),bg="#DCDFDE")
-label_address.place(x=150,y=170)
+label_Type = Label(text="Type",font=("Arial Bold",20),bg="#DCDFDE")
+label_Type.place(x=690,y=190)
 
-label_role = Label(text="Time",font=("Arial Bold",20),bg="#DCDFDE")
-label_role.place(x=150,y=210)
+label_Time = Label(text="Time",font=("Arial Bold",20),bg="#DCDFDE")
+label_Time.place(x=690,y=260)
 
-label_salary = Label(text="Cost",font=("Arial Bold",20),bg="#DCDFDE")
-label_salary.place(x=150,y=260)
 
 label_delete = Label(text="Check out",font=("Arial Bold",20),bg="#DCDFDE")
-label_delete.place(x=150,y=550)
+label_delete.place(x=690,y=550)
 
 label_update= Label(text="Update",font=("Arial Bold",20),bg="#DCDFDE")
-label_update.place(x=150,y=500)
+label_update.place(x=690,y=500)
 
 VechileNo = Entry(boot,width=30)
-VechileNo.place(x=300,y=120,height=30)
+VechileNo.place(x=860,y=120,height=30)
 VechileNo.configure(bg="#DCDFDE")
 
-Type = ttk.Combobox(boot, width=27, values=["Four Wheeler(Heavy)", "Four Wheeler(Personal)","Four Wheeler(Government)"])
-Type.place(x=300, y=170, height=30)
+Type = ttk.Combobox(boot, width=27, values=["Two Wheeler(Bicycle)", "Two Wheeler(Bike)","Two Wheeler(Government)"])
+Type.place(x=860, y=190, height=30)
 
 Time = ttk.Combobox(boot, width=27, values=[1,2,3,4,5,6])
-Time.place(x=300,y=210,height=30)
+Time.place(x=860,y=260,height=30)
 
-
-Cost = Entry(boot,width=30)
-Cost.place(x=300,y=260,height=30)
-Cost.configure(bg="#DCDFDE")
 
 delete = ttk.Combobox(boot, width=27, values=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20])
-delete.place(x=300,y=550,height=30)
-
+delete.place(x=860,y=550,height=30)
 
 update_box = Entry(boot, width=30)
-update_box.place(x=300,y=500,height=30)
+update_box.place(x=860,y=500,height=30)
 update_box.configure(bg="#DCDFDE")
 
 
 add_btn= Button(boot,text="Add",font=("Arial Bold",20),command=add)
-add_btn.place(x=150,y=350)
+add_btn.place(x=660,y=350)
 
 
 Bill_btn= Button(boot,text="Bill",font=("Arial Bold",20),command=Bill)
-Bill_btn.place(x=250,y=350)
+Bill_btn.place(x=750,y=350)
 
-update_btn= Button(boot,text='Change Vechile \n Info',font =('Arial Bold',13),command=edit)
-update_btn.place(x=350,y=350)
-Bill = Entry(boot,width=30)
-Bill.place(x=300 ,y=430,height=30)
+update_btn= Button(boot,text='Change Vechile \n Info',font =('Arial Bold',20),command=edit)
+update_btn.place(x=850,y=350)
 
+delete_btn= Button(boot,text="Check out",font=("Arial Bold",20),command=deleteRow)
+delete_btn.place(x=950,y=600)
 
 def open():
         global my_img
         top=Toplevel()
-        my_img=PhotoImage(Image.open("bike4.png"))
+        my_img=ImageTk.PhotoImage(Image.open("photos/bike_slot.png"))
+        top.iconbitmap(icon_path)
         my_label=Label(top,image=my_img)
         my_label.pack(pady=0)
         btn=Button(top,text="Close Window",bg="black",fg="white",command=top.destroy)
         btn.pack()
 btnn=Button(boot,text="open Slot BluePrint",command=open,bg="black",fg="white")
-btnn.place(x=900,y=77)
+btnn.place(x=30,y=77)
 
 def back():
       boot.destroy()
-      import img
+      import Home_screen
 
 btnn1=Button(boot,text="Back",command=back,bg="black",fg="white")
-btnn1.place(x=1070,y=590)
+btnn1.place(x=560,y=590)
 
 
 boot.mainloop()
