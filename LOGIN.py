@@ -29,15 +29,8 @@ def signin():
     result = cursor.fetchone()
 
     if result:
-        screen = Toplevel(root)
-        screen.title("App")
-        screen.geometry('1200x680')
-        screen.config(bg='white')
-
-        Label(screen, text='Hello Everyone!', bg='#fff', font=('Calibri(body)', 50, 'bold')).pack(expand=True)
-
-        screen.mainloop()
-
+        root.destroy()
+        import img
     else:
         messagebox.showerror('Invalid', 'Invalid username or password')
 

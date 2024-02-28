@@ -21,7 +21,7 @@ cursor.execute("""CREATE TABLE IF NOT EXISTS parking(
 conn.commit()
 conn.close()
 
-bg1 = PhotoImage(file = "underground.png")  
+bg1 = PhotoImage(file = "photos/underground.png")  
 labe001 = Label( boot, image = bg1) 
 labe001.place(x= 100, y= 10,)
 
@@ -280,6 +280,13 @@ def open():
         btn.pack()
 btnn=Button(boot,text="open Slot BluePrint",command=open,bg="black",fg="white")
 btnn.place(x=900,y=77)
+
+def back():
+      boot.destroy()
+      import img
+
+btnn1=Button(boot,text="Back",command=back,bg="black",fg="white")
+btnn1.place(x=1070,y=590)
 
 
 boot.mainloop()

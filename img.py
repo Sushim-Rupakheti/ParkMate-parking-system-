@@ -4,13 +4,17 @@ from tkinter import font
 
 top = Tk()
 top.geometry("1200x680")
-
-img=PhotoImage(file='unknown.png')
+top.title("Home Screen")
+img=PhotoImage(file='photos/Unknown.png')
 Label(top,image=img,border=0,bg='white').place(x=0,y=0)
 
 def show_vehicle_type(vehicle_type):
     messagebox.showinfo("Congratulations",f"Succesfully selected  {vehicle_type}")
-
+    if vehicle_type=="Two Wheeler":
+        top.destroy()
+        import home2
+    else:
+        import home
 label_font = font.Font(family='Helvetica', size=60, weight='bold')
 label = Label(top, text="Select Vehicle Type:", font=label_font)
 label.place(x=300, y=60)

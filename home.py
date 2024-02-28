@@ -3,7 +3,7 @@ from tkinter import ttk,messagebox
 from PIL import Image, ImageTk
 import sqlite3
 root=Tk()
-icon_path = ("C:/Users/mhnas/Desktop/LED/photos/car.ico")
+icon_path = ("photos\car.ico")
 root.iconbitmap(icon_path)
 root.configure(bg="#FCE8E0")
 root.title("ParkMate")
@@ -24,11 +24,11 @@ conn.close()
 
 
 #background images 
-bg1 = PhotoImage(file="C:/Users/mhnas/Desktop/LED/photos/color.png")  
+bg1 = PhotoImage(file="photos/color.png")  
 labe001 = Label( root, image = bg1) 
 labe001.place(x = 0, y = 70)
 
-bg = PhotoImage(file = "C:/Users/mhnas/Desktop/LED/photos/simple-bg.png")  
+bg = PhotoImage(file = "photos\simple-bg.png")  
 label1 = Label( root, image = bg) 
 label1.place(x = 500, y = 70)
 
@@ -283,7 +283,7 @@ delete_btn.place(x=300,y=600)
 def open():
         global my_img
         top=Toplevel()
-        my_img= ImageTk.PhotoImage(Image.open("C:/Users/mhnas/Desktop/LED/photos/map.png"))
+        my_img= ImageTk.PhotoImage(Image.open("photos/map.png"))
         my_label=Label(top,image=my_img)
         my_label.pack(pady=0)
         btn=Button(top,text="Close Window",bg="black",fg="white",command=top.destroy)
@@ -291,7 +291,12 @@ def open():
 btnn=Button(root,text="open Slot BluePrint",command=open,bg="black",fg="white")
 btnn.place(x=1005,y=77)
 
+def back():
+      root.destroy()
+      import img
 
+btnn1=Button(root,text="Back",command=back,bg="black",fg="white")
+btnn1.place(x=1070,y=590)
 root.mainloop()
 
 
