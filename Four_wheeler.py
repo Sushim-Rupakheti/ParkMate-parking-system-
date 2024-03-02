@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import ttk,messagebox
 from PIL import Image, ImageTk
 import sqlite3
+
 root=Tk()
 icon_path = ("photos/car.ico")
 root.iconbitmap(icon_path)
@@ -22,17 +23,13 @@ cursor.execute("""CREATE TABLE IF NOT EXISTS parking(
 conn.commit()
 conn.close()
 
-
 #background images 
 bg1 = PhotoImage(file="photos/color.png")  
 labe001 = Label( root, image = bg1) 
 labe001.place(x = 0, y = 70)
-
 bg = PhotoImage(file = "photos/simple-bg.png")  
 label1 = Label( root, image = bg) 
 label1.place(x = 500, y = 70)
-
-
 
 #CRUD Functions
 
@@ -89,9 +86,6 @@ def add():
     VechileNo.delete(0, END)
     Type.set("")  # Reset the vehicle type selection
     Time.delete(0, END)
-    # Cost.delete(0, END)
-
-
 
 
 
@@ -121,7 +115,6 @@ def Bill():
     for record in records:
         tree.insert("", "end", values=record)
     
-
     conn.close()
 
 def deleteRow():
@@ -141,8 +134,6 @@ def deleteRow():
           Bill()
     
 
-
-
 def edit():  
           record_id =update_box.get()
 
@@ -159,15 +150,11 @@ def edit():
           editor.configure(bg="#FCE8E0")
           conn = sqlite3.connect("pk.db")
           c=conn.cursor()
-          
           c.execute("SELECT * FROM parking WHERE ID=?",(record_id,))
-          
-          # creating global variable
           global VechileNo_editor
           global Type_editor
           global Time_editor
           global Cost_editor
-          
           records=c.fetchall()
           VechileNo_editor = Entry(editor,width=30)
           VechileNo_editor.grid(row=0,column=1,padx=20,pady=(10,0))
@@ -218,8 +205,7 @@ def update(record_id):
           conn.close()
           messagebox.showinfo("congratulations","Vehiccle_info successfully changed")
 
-          
-          
+                
 frame=LabelFrame(root,padx=80,pady=80,bg="white")          
 lbl = Label(text="ParkMate For 4-Wheelers",font=("Arial Bold",40),bg="#FCE8E0").pack(pady=0)
 root.geometry("1200x680")
@@ -249,15 +235,12 @@ Type.place(x=210, y=190, height=30)
 Time = ttk.Combobox(root, width=27, values=[1,2,3,4,5,6])
 Time.place(x=210,y=260,height=30)
 
-
 delete = ttk.Combobox(root, width=27, values=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20])
 delete.place(x=210,y=550,height=30)
-
 
 update_box = Entry(root, width=30)
 update_box.place(x=210,y=500,height=30)
 update_box.configure(bg="#DCDFDE")
-
 
 add_btn= Button(root,text="Add",font=("Arial Bold",20),command=add)
 add_btn.place(x=10,y=350)
@@ -265,7 +248,6 @@ add_btn.place(x=10,y=350)
 
 Bill_btn= Button(root,text="Bill",font=("Arial Bold",20),command=Bill)
 Bill_btn.place(x=100,y=350)
-
 
 update_btn= Button(root,text="Change Vechile \n Info ",font=("Arial Bold",20),command=edit)
 update_btn.place(x=200,y=350)
@@ -288,9 +270,9 @@ btnn.place(x=1005,y=77)
 def back():
       root.destroy()
       import Home_screen
-
 btnn1=Button(root,text="Back",command=back,bg="black",fg="white")
 btnn1.place(x=1070,y=590)
+
 root.mainloop()
 
 

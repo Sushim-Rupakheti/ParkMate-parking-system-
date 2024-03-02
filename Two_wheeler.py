@@ -47,7 +47,7 @@ def add():
         messagebox.showerror("Error", "Time must be a valid integer.")
         return
     
-    conn=sqlite3.connect('pk.db')
+    conn=sqlite3.connect('pk1.db')
     c = conn.cursor()
 
     # Calculate cost based on vehicle type

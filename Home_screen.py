@@ -6,6 +6,8 @@ top = Tk()
 top.geometry("1200x680")
 top.title("Home Screen")
 img=PhotoImage(file='photos/Unknown.png')
+icon_path=("photos/bill.ico")
+top.iconbitmap(icon_path)
 Label(top,image=img,border=0,bg='white').place(x=0,y=0)
 
 def two_wheeler():
