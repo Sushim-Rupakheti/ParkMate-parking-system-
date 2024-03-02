@@ -32,7 +32,7 @@ four_wheeler_button = Button(top, text="Four Wheeler", font=button_font, width=1
 four_wheeler_button.place(x=660, y=320)
 
 def show_info(information):
-    messagebox.showinfo("congratulations",f"A software program called a parking management system (PMS) app is made to simplify and enhance parking operations in a variety of settings,including garages,parkinng structures, and parking lots.With capabilities for effictive parking space distribution, payment processing,and real time monitoring,this kind of app benefits parking lot managers as well as car owner.")
+    messagebox.showinfo("Information About Parkmate",f"A software program called a parking management system (PMS) app is made to simplify and enhance parking operations in a variety of settings,including garages,parkinng structures, and parking lots.With capabilities for effictive parking space distribution, payment processing,and real time monitoring,this kind of app benefits parking lot managers as well as car owner.")
 
 button_font = font.Font(family='Arial', size=40)
 show_info_button = Button(top, text="Info of Parkmate", font=button_font, width=15, command=lambda: show_info("information"))
